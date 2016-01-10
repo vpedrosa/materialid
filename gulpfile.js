@@ -29,7 +29,7 @@ gulp.task('styles', function() {
 
 gulp.task('default', ['scripts','styles'],function()
 {
-);
+});
 
 gulp.task('production', ['scripts','styles'], function() {
 });
