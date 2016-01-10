@@ -27,9 +27,14 @@ gulp.task('styles', function() {
         .pipe(gulp.dest('./dist/'));
 });
 
-gulp.task('default', ['scripts','styles'],function()
+gulp.task('default', ['production'],function()
 {
 });
 
 gulp.task('production', ['scripts','styles'], function() {
+});
+
+gulp.task('watch', function() {
+    gulp.watch('./js/**/*.js',['scripts']);
+    gulp.watch('sass/main.scss',['styles']);
 });

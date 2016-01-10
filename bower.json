@@ -1,0 +1,32 @@
+{
+  "name": "materialid",
+  "description": "Form validation made easy for MaterializeCSS",
+  "main": "/dist/materialid.js",
+  "authors": [
+    "Valentin <burflip@gmail.com>"
+  ],
+  "license": "MIT",
+  "keywords": [
+    "materializecss",
+    "materialize",
+    "validator",
+    "validation",
+    "form-validation",
+    "form"
+  ],
+  "homepage": "https://github.com/burflip/materialid",
+  "moduleType": [
+    "globals"
+  ],
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "jquery": "~2.2.0",
+    "Materialize": "materialize#~0.97.5"
+  }
+}

@@ -7,25 +7,37 @@ Form validation for MaterializeCSS
 
 This project is currently *under development*.
 
+##Installation
+
+This projects requires JQuery and MaterializeCSS
+
 ##Documentation
 
-Basic usage:
+Basic example usage:
 
 ```
 $("form").materialid({
-        fields:
-        {
-            field_id:{
-                notEmpty:{}
-            }
+    fields:
+    {
+        field_id:{
+            notEmpty:{}
         }
-    });
-
+    }
+});
 ```
 
-"notEmpty" is a validator. Available validators are:
+Available validators are:
 
+* between
 * notEmpty
+* cif
+* digits
+* dni
+* nie
+* notEmpty
+* numeric
+* regexp
+
 
 
 

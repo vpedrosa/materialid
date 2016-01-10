@@ -32,7 +32,13 @@ var materialid = {
  * @type {{notEmpty: notEmpty}}
  */
 var callbacksIndex = {
-    "notEmpty": notEmpty
+    "notEmpty": notEmpty,
+    "regexp" : regexp,
+    "digits" : digits,
+    "numeric" : numeric,
+    "dni" : dni,
+    "nie" : nie,
+    "cif" : cif,
 }
 
 /**
@@ -74,7 +80,7 @@ function validateContainer(selector, config_array) {
         initListeners(selector, config_array);
     } else {
         console.log("Invalid selector: ", selector);
-        console.log("Types availables:div and form.");
+        console.log("Types availables: div and form.");
     }
 }
 /**
@@ -117,7 +123,6 @@ function validateField(field, validators) {
             field_valid = validator(field, k, v) ? field_valid : false;
             msg = messages[k];
         })
-        console.log("Field validity:" + field_valid)
         field_valid ? successCallback(field, msg) : errorCallback(field, msg);
         materialid.form_obj.is_valid = field_valid ? materialid.form_obj.is_valid : false;
     }
@@ -161,7 +166,6 @@ function errorCallback(field, msg) {
         field.after("<span id='" + field.attr("id") + "_validation_msg' class='validation-msg'></span>");
     }
     $("#" + field.attr("id") + "_validation_msg").text(msg);
-    console.log(field);
     field.removeClass("valid").addClass("invalid");
 }
 
