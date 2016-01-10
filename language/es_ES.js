@@ -18,6 +18,7 @@ var messages =
     digits:"Ha de contener sólo números.",
     between:"Debe contener entre  %a% y %b% caracteres.",
     exact:"Debe tener exáctamente %a% caracteres.",
-    nif:"Ha de ser un DNI, NIE, CIF o NIF válido."
+    nif:"Ha de ser un DNI, NIE, CIF o NIF válido.",
+    regexp:"El valor de este campo no es correcto."
 }
 $.extend(materialid,messages);
