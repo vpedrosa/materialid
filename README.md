@@ -1,6 +1,7 @@
 # Materialid - A MaterializeCSS Form Validation
 
-![build](https://api.travis-ci.org/burflip/materialid.svg)
+![travis-badge](https://api.travis-ci.org/burflip/materialid.svg)
+![license-badge](https://img.shields.io/badge/license-MIT-blue.svg)
 
 Form validation for MaterializeCSS
 
