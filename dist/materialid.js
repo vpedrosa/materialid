@@ -44,6 +44,7 @@ function validateContainer(selector, config_array) {
         initListeners(selector, config_array);
         //Attaching form submit validation
         selector.submit(function (e) {
+            evaluateFields(selector, config_array);
             if (!materialid.form_obj.is_valid) {
                 e.preventDefault();
             } else {
@@ -60,27 +61,41 @@ function validateContainer(selector, config_array) {
 
 function initListeners(selector, config_array) {
     $.each(config_array.fields, function (k, v) {
-        validateField(selector.find("#" + k), v);
+        addValidationListenerToField(selector.find("#" + k), v);
     })
 }
 
-function validateField(field, validators) {
+function addValidationListenerToField(field, validators) {
     if (materialid.configs.trigger == "change") {
         field.change(function () {
-            var field_valid = true;
-            var msg = "";
-            $.each(validators, function (k, v) {
-                field_valid = validator(field, k, v) ? field_valid : false;
-                msg = messages[k];
-            })
-            console.log("Field validity:"+field_valid)
-            field_valid ? successCallback(field, msg) : errorCallback(field, msg);
-            materialid.form_obj.is_valid = field_valid ? materialid.form_obj.is_valid : false;
-            return field_valid;
+            validateField(field,validators);
         })
     } else {
         //TODO: attach to trigger
     }
+}
+
+function validateField(field,validators)
+{
+    var field_valid = true;
+    var msg = "";
+    if(field.is(":visible")) {
+        $.each(validators, function (k, v) {
+            field_valid = validator(field, k, v) ? field_valid : false;
+            msg = messages[k];
+        })
+        console.log("Field validity:"+field_valid)
+        field_valid ? successCallback(field, msg) : errorCallback(field, msg);
+        materialid.form_obj.is_valid = field_valid ? materialid.form_obj.is_valid : false;
+    }
+    return field_valid;
+}
+
+function evaluateFields(selector, config_array)
+{
+    $.each(config_array.fields, function (k, v) {
+        validateField(selector.find("#" + k), v);
+    })
 }
 
 function validator(field, callback, settings) {
