@@ -27,10 +27,9 @@ gulp.task('styles', function() {
         .pipe(gulp.dest('./dist/'));
 });
 
-gulp.task('default', function() {
-    gulp.watch('sass/main.scss',['styles']);
-    gulp.watch('./js/**/*.js',['scripts']);
-});
+gulp.task('default', ['scripts','styles'],function()
+{
+);
 
 gulp.task('production', ['scripts','styles'], function() {
 });
