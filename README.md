@@ -16,6 +16,7 @@ This project is currently *under development*.
 1. [Getting Started](#getting-started)
 2. [Configuration and options](#configuration-and-options)
 3. [Validators](#validators)
+4. [Field callbacks](#field-callbacks)
 
 ##Getting Started
 
