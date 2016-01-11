@@ -21,13 +21,13 @@ This project is currently *under development*.
 
 To install Materialid use [bower](http://bower.io/):
 
-```
+```shell
 bower install materialid
 ```
 
 Basic example usage:
 
-```
+```javascript
 $("form").materialid({
     fields:
     {
@@ -43,7 +43,7 @@ $("form").materialid({
 You can use configuration and options to change default parameters of Materialid.
 You can set configuration options when calling Materialid.
 
-```
+```javascript
 $("form").materialid({
     fields:
     {
@@ -203,7 +203,7 @@ Regular expression to compare against.
 
 **Default** options are:
 
-```json
+```javascript
 regexp:{
     regexp:undefined
 }
