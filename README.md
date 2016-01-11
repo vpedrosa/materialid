@@ -3,9 +3,12 @@
 ![travis-badge](https://api.travis-ci.org/burflip/materialid.svg)
 ![license-badge](https://img.shields.io/badge/license-MIT-blue.svg)
 
-Materialid is a JQuery form validation plugin in 5kB.
+**Materialid is a JQuery form validation plugin in 5kB.**
+
 Designed for Materialize, with an extensible core for every framework.
+
 Form validation made easy designed for MaterializeCSS.
+
 This project is currently *under development*.
 
 #Documentation
@@ -113,7 +116,7 @@ function errorCallback(field, msg) {
 
 Default options for Materialid are:
 
-```json
+```javascript
 config: {
     locale: "es_ES",
     trigger: "change",
@@ -123,7 +126,7 @@ config: {
     on_forward: undefined,
     on_backward: undefined,
     enable_visible: true
-},
+}
 ```
 
 ##Validators
@@ -148,8 +151,8 @@ All validators can have a *msg* option.
 Custom messsage passed to callback, will override language and predefined message.
 
 **Default** options are:
-```json
-???:{ // Any validator possible
+```javascript
+validator_name:{ // Any validator possible
     ... // Other options
     callback_success:undefined,
     callback_error:undefined,
@@ -161,31 +164,41 @@ Custom messsage passed to callback, will override language and predefined messag
 ###notEmpty
 
 Similar to *required*.
+
 Will check if a field value is empty or blank.
+
 *"" and "   " will return false.*
+
 No options avaliable.
 
 ###digits
 
 Will check if the field value contains only digits.
+
 "123.20", "a123", "5+123" and "-2112" are **invalid** values.
+
 No options avaliable.
 
 ###numeric
 
 Will check if the field value contains only digits.
+
 "123.20", "5+123" and "-2112" are **valid** values.
+
 "123.123,20" are **invalid** values.
+
 No options avaliable.
 
 
 ###regexp
 
 Returns true if field value satisfy a Regular expression.
+
 Javascript *.test(regex)* function is used to check it.
 
 ####Options
 #####*regexp:regexp*
+
 Regular expression to compare against.
 
 **Default** options are:
@@ -199,6 +212,7 @@ regexp:{
 ###between
 
 Returns true if field value is between two parameters.
+
 Check if is numeric value. No point to use it along numeric.
 
 ####Options
@@ -216,7 +230,7 @@ The field value must be higher than min value.
 
 **Default** options are:
 
-```json
+```javascript
 between:{
     min:-Number.MIN_SAFE_INTEGER,
     max:Number.MAX_SAFE_INTEGER,
@@ -228,22 +242,27 @@ between:{
 ###dni
 
 Checks if a field is a valid spanish DNI code.
+
 Only DNI codes returns true, neither special NIFs codes (Starting with K,L or M) nor NIEs codes.
+
 No options avaliable.
 
 ###nie
 
 Checks if a field is a valid spanish NIE code.
+
 No options avaliable.
 
 ###cif
 
 Checks if a field is a valid spanish CIF code.
+
 No options avaliable.
 
 ###custom
 
 Returns true if a custom callback is satisfied.
+
 The callback function may accept one parameter *field*, and may return *true* if it's valid and *false* if it's not.
 
 - The *field* parameter will contain the JQuery DOM reference to the field. *(You can use directly field.val(), for example)*
@@ -261,11 +280,12 @@ function myCustomCallback(field) {
 ```
 ####Options
 #####*callback:customCallbackFunction*
+
 Regular expression to compare against.
 
 **Default** options are:
 
-```json
+```javascript
 custom:{
     callback:undefined
 }
@@ -274,7 +294,7 @@ custom:{
 ##Field callbacks
 Each field can have a *success_callback* and a *error_callback* option, to perform a different action on field validation than preset from configs or setted with:
 
-```json
+```javascript
 config:
     {
         error_callback: myCustomErrorCallbackFunctionName,
@@ -312,9 +332,13 @@ $("form").materialid({
 In this case, if the validation for *#field_id* return is *true*, **callback_s** will be called, otherwise, if the validation is *false*, **callback_e** will be called instead. 
 
 #####*success_callback:customCallbackFunction*
+
 Defines a callback that is called only when this validator is called.
+
 Calls this function when a validator returns true (field is **valid**).
+
 This will override [config's callback option](#success_callback).
+
 The callback may accept two parameters, *field* and *msg*.
 
 - The *field* parameter will contain the JQuery DOM reference to the field. *(You can use directly field.val(), for example)*
@@ -323,9 +347,13 @@ The callback may accept two parameters, *field* and *msg*.
 **Default** value is *undefined*.
 
 #####*error_callback:customCallbackFunction*
+
 Defines a callback that is called only when this validator is called.
+
 Calls this function when a validator returns false (field is **invalid**).
+
 This will override [config's callback option](#success_callback).
+
 The callback may accept two parameters, *field* and *msg*.
 
 - The *field* parameter will contain the JQuery DOM reference to the field. *(You can use directly field.val(), for example)*
