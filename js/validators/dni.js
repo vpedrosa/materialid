@@ -14,11 +14,10 @@ function dni(field, setttings) {
  * @param dni
  * @returns {boolean}
  */
-function validateDNI(dni)
-{
+function validateDNI(dni) {
     var is_valid = true;
     if (/^\d{8}[a-zA-Z]$/.test(dni) == true) {
-        var charIndex = parseInt(dni.substr(0,8)) % 23;
+        var charIndex = parseInt(dni.substr(0, 8)) % 23;
         var la = 'TRWAGMYFPDXBNJZSQVHLCKET'.charAt(charIndex);
         la != dni.substr(dni.length - 1, 1).toUpperCase() ? is_valid = false : null;
     } else {

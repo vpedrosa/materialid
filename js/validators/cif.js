@@ -7,14 +7,9 @@
 function cif(field, settings) {
     if (notEmpty(field)) {
         var value = field.val().toUpperCase();
-        var is_valid = false;
-        var pares = 0;
-        var impares = 0;
-        var suma;
-        var ultima;
-        var unumero;
+        var suma, ultima, unumero, xxx;
+        var is_valid = false, pares = 0, impares = 0;
         var uletra = ["J", "A", "B", "C", "D", "E", "F", "G", "H", "I"];
-        var xxx;
         var regular = /^[ABCDEFGHKLMNPQS]\d{7}[0-9,A-J]$/g;
         if (regular.test(value)) {
             ultima = value.substr(8, 1);

@@ -4,7 +4,6 @@
  * @param settings
  * @returns {boolean}
  */
-function numeric(field,settings)
-{
+function numeric(field, settings) {
     return !isNaN(field.val());
 }

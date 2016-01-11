@@ -4,8 +4,7 @@
  * @param settings
  * @returns {boolean}
  */
-function nie(field,settings)
-{
+function nie(field, settings) {
     var is_valid = true;
     var str = field.val().toString().toUpperCase();
     if (/^[XYZ][0-9]{7}[TRWAGMYFPDXBNJZSQVHLCKET]$/i.test(str)) {

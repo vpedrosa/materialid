@@ -3,8 +3,7 @@
  * @param field
  * @returns {boolean}
  */
-function notEmpty(field)
-{
+function notEmpty(field) {
     var is_valid = true;
     var field_type = field.attr('type');
     switch (field_type) {

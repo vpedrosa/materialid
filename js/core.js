@@ -7,15 +7,15 @@
  */
 /**
  * Materialid default options
- * @type {{fields: undefined, configs: {locale: string, trigger: string, error_callback: errorCallback, success_callback: successCallback, steps: undefined, on_forward: undefined, on_backward: undefined, enable_visible: boolean}, form_obj: {selector: undefined, is_valid: boolean}}}
+ * @type {{fields: undefined, config: {locale: string, trigger: string, error_callback: errorCallback, success_callback: successCallback, steps: undefined, on_forward: undefined, on_backward: undefined, enable_visible: boolean}, form_obj: {selector: undefined, is_valid: boolean}}}
  */
 var materialid = {
     fields: undefined,
-    configs: {
+    config: {
         locale: "es_ES",
         trigger: "change",
-        "error_callback": errorCallback,
-        "success_callback": successCallback,
+        error_callback: errorCallback,
+        success_callback: successCallback,
         steps: undefined,
         on_forward: undefined,
         on_backward: undefined,
@@ -33,12 +33,13 @@ var materialid = {
  */
 var callbacksIndex = {
     "notEmpty": notEmpty,
-    "regexp" : regexp,
-    "digits" : digits,
-    "numeric" : numeric,
-    "dni" : dni,
-    "nie" : nie,
-    "cif" : cif,
+    "regexp": regexp,
+    "digits": digits,
+    "numeric": numeric,
+    "dni": dni,
+    "nie": nie,
+    "cif": cif,
+    "custom": custom
 }
 
 /**
@@ -100,7 +101,7 @@ function initListeners(selector, config_array) {
  * @param validators
  */
 function addValidationListenerToField(field, validators) {
-    if (materialid.configs.trigger == "change") {
+    if (materialid.config.trigger == "change") {
         field.change(function () {
             validateField(field, validators);
         })
@@ -118,12 +119,12 @@ function addValidationListenerToField(field, validators) {
 function validateField(field, validators) {
     var field_valid = true;
     var msg = "";
-    if ((materialid.configs.enable_visible && field.is(":visible")) || !materialid.configs.enable_visible) {
+    if ((materialid.config.enable_visible && field.is(":visible")) || !materialid.config.enable_visible) {
         $.each(validators, function (k, v) {
             field_valid = validator(field, k, v) ? field_valid : false;
-            msg = messages[k];
+            msg = (typeof v["msg"] !== "undefined") ? messages[k] : v["msg"];
         })
-        field_valid ? successCallback(field, msg) : errorCallback(field, msg);
+        field_valid ? materialid.config.success_callback(field, msg) : materialid.config.error_callback(field, msg);
         materialid.form_obj.is_valid = field_valid ? materialid.form_obj.is_valid : false;
     }
     return field_valid;

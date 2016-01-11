@@ -7,7 +7,6 @@
  * @param field
  * @returns {boolean}
  */
-function regexp(field,setttings)
-{
+function regexp(field, setttings) {
     return setttings.pattern.test(field.val());
 }

@@ -6,7 +6,6 @@
  * @param setttings
  * @returns {boolean}
  */
-function digits(field,setttings)
-{
+function digits(field, setttings) {
     return !/\D+/g.test(field.val());
 }
