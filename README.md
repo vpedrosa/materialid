@@ -25,6 +25,14 @@ To install Materialid use [bower](http://bower.io/):
 ```shell
 bower install materialid
 ```
+Then include it in your html files:
+
+```html
+<link rel="stylesheet" href="/materialid/dist/materialid.min.css">
+<script src="/materialid/dist/materialid.min.js"></script>
+<!-- Language -->
+<script src="/js/materialid/language/es_ES.js"></script>
+```
 
 Basic example usage:
 
