@@ -98,12 +98,12 @@ function initListeners(selector, config_array) {
 /**
  * Attach a validation listener to a field
  * @param field
- * @param validators
+ * @param field_options
  */
-function addValidationListenerToField(field, validators) {
+function addValidationListenerToField(field, field_options) {
     if (materialid.config.trigger == "change") {
         field.change(function () {
-            validateField(field, validators);
+            validateField(field, field_options);
         })
     } else {
         //TODO: attach to trigger
@@ -113,18 +113,29 @@ function addValidationListenerToField(field, validators) {
 /**
  * Validates a single field bearing in mind the "enable_visible" configuration option
  * @param field
- * @param validators
+ * @param field_options
  * @returns {boolean}
  */
-function validateField(field, validators) {
+function validateField(field, field_options) {
     var field_valid = true;
     var msg = "";
     if ((materialid.config.enable_visible && field.is(":visible")) || !materialid.config.enable_visible) {
-        $.each(validators, function (k, v) {
-            field_valid = validator(field, k, v) ? field_valid : false;
-            msg = (typeof v["msg"] !== "undefined") ? messages[k] : v["msg"];
-        })
-        field_valid ? materialid.config.success_callback(field, msg) : materialid.config.error_callback(field, msg);
+        if(typeof field_options.validators !== "undefined") {
+            $.each(field_options.validators, function (k, v) {
+                field_valid = validator(field, k, v) ? field_valid : false;
+                msg = (typeof v["msg"] !== "undefined") ? v["msg"] : messages[k];
+            })
+        } else {
+            field_valid = true;
+            console.log("Be careful, validator list for field #"+field.attr("id")+" is undefined.");
+        }
+        if(typeof field_options.error_callback !== "undefined" && !field_valid) {
+            field_options.error_callback(field,msg);
+        } else if(typeof field_options.success_callback !== "undefined" && field_valid) {
+            field_options.success_callback(field,msg);
+        } else {
+            field_valid ? materialid.config.success_callback(field, msg) : materialid.config.error_callback(field, msg);
+        }
         materialid.form_obj.is_valid = field_valid ? materialid.form_obj.is_valid : false;
     }
     return field_valid;

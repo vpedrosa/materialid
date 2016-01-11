@@ -3,7 +3,8 @@
 ![travis-badge](https://api.travis-ci.org/burflip/materialid.svg)
 ![license-badge](https://img.shields.io/badge/license-MIT-blue.svg)
 
-Materialid is a JQuery form validation plugin, designed for Materialize, with an extensible core for every framework.
+Materialid is a JQuery form validation plugin in 5kB.
+Designed for Materialize, with an extensible core for every framework.
 Form validation made easy designed for MaterializeCSS.
 This project is currently *under development*.
 
@@ -44,7 +45,10 @@ $("form").materialid({
     fields:
     {
         field_id:{
-            notEmpty:{}
+            validators:
+            {
+                notEmpty:{}
+            }
         }
     }
     config:
@@ -138,29 +142,7 @@ Available validators are:
 
 ###Common configuration
 
-All validators can have a *msg*, a *callback_success* and a *callback_error* option.
-
-#####*callback_success:customCallbackFunction*
-Defines a callback that is called only when this validator is called.
-Calls this function when a validator returns true (field is **valid**).
-This will override [config's callback option](#success_callback).
-The callback may accept two parameters, *field* and *msg*.
-
-- The *field* parameter will contain the JQuery DOM reference to the field. *(You can use directly field.val(), for example)*
-- The *msg* parameter will contain the custom message, translated (by language), or predefined, in that preference order.
-
-**Default** value is *undefined*.
-
-#####*callback_error:customCallbackFunction*
-Defines a callback that is called only when this validator is called.
-Calls this function when a validator returns false (field is **invalid**).
-This will override [config's callback option](#success_callback).
-The callback may accept two parameters, *field* and *msg*.
-
-- The *field* parameter will contain the JQuery DOM reference to the field. *(You can use directly field.val(), for example)*
-- The *msg* parameter will contain the custom message, translated (by language), or predefined, in that preference order.
-
-**Default** value is *undefined*, so this option will be ignored if unset.
+All validators can have a *msg* option.
 
 #####*msg:string*
 Custom messsage passed to callback, will override language and predefined message.
@@ -289,4 +271,64 @@ custom:{
 }
 ```
 
+##Field callbacks
+Each field can have a *success_callback* and a *error_callback* option, to perform a different action on field validation than preset from configs or setted with:
 
+```json
+config:
+    {
+        error_callback: myCustomErrorCallbackFunctionName,
+        success_callback: myCustomSuccessCallbackFunctionName
+    }
+```
+
+This is a full example of usage:
+
+```javascript
+$("form").materialid({
+        fields:
+        {
+            field_id:{
+                validators:{
+                    numeric:{
+                        msg:"Custom error message"
+                    }
+                },
+                error_callback:foo,
+                success_callback:bar
+            }
+        }
+    });
+    function foo(field,msg)
+    {
+        alert("Error Callback fired for #"+field.attr("id")+" msg:"+msg)
+    }
+    function bar(field)
+    {
+        alert("Success callback fired for #"+field.attr("id"));
+    }
+```
+
+In this case, if the validation for *#field_id* return is *true*, **callback_s** will be called, otherwise, if the validation is *false*, **callback_e** will be called instead. 
+
+#####*success_callback:customCallbackFunction*
+Defines a callback that is called only when this validator is called.
+Calls this function when a validator returns true (field is **valid**).
+This will override [config's callback option](#success_callback).
+The callback may accept two parameters, *field* and *msg*.
+
+- The *field* parameter will contain the JQuery DOM reference to the field. *(You can use directly field.val(), for example)*
+- The *msg* parameter will contain the custom message, translated (by language), or predefined, in that preference order.
+
+**Default** value is *undefined*.
+
+#####*error_callback:customCallbackFunction*
+Defines a callback that is called only when this validator is called.
+Calls this function when a validator returns false (field is **invalid**).
+This will override [config's callback option](#success_callback).
+The callback may accept two parameters, *field* and *msg*.
+
+- The *field* parameter will contain the JQuery DOM reference to the field. *(You can use directly field.val(), for example)*
+- The *msg* parameter will contain the custom message, translated (by language), or predefined, in that preference order.
+
+**Default** value is *undefined*, so this option will be ignored if unset.

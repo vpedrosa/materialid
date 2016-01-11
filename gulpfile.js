@@ -25,7 +25,7 @@ gulp.task('styles', function () {
     gulp.src('sass/main.scss')
         .pipe(sourcemaps.init())
         .pipe(sass().on('error', sass.logError))
-        .pipe(concat('materialid.css'))
+        .pipe(concat('materialid.min.css'))
         .pipe(minifyCss({compatibility: 'ie8'}))
         .pipe(sourcemaps.write('./maps/'))
         .pipe(gulp.dest('./dist/'));

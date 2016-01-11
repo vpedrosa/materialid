@@ -1,1 +1,1 @@
-{"version":3,"sources":["main.scss"],"names":[],"mappings":"AAAA,eAAe,CACf;EACE,KAAK,EAAC,GAAI,GACX","file":"materialid.css","sourcesContent":[".validation-msg\n{\n  color:red;\n}"],"sourceRoot":"/source/"}
+{"version":3,"sources":["main.scss"],"names":[],"mappings":"AAAA,gBAEE,MAAM","file":"materialid.css","sourcesContent":[".validation-msg\n{\n  color:red;\n}"],"sourceRoot":"/source/"}
