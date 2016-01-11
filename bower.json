@@ -3,8 +3,7 @@
   "description": "Form validation made easy for MaterializeCSS",
   "main": "/dist/materialid.js",
   "authors": [
-    "Valentin <valentin@beebit.es>",
-    "Sergio <sergio@beebit.es>",
+    "Valentin <valentin@beebit.es>"
   ],
   "license": "MIT",
   "keywords": [
