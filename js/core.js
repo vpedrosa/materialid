@@ -153,6 +153,7 @@ function validateField(field, field_options) {
  * @param config_array
  */
 function evaluateFields(selector, config_array) {
+    materialid.form_obj.is_valid = true;
     $.each(config_array.fields, function (k, v) {
         validateField(selector.find("#" + k), v);
     })
