@@ -1,13 +1,12 @@
 /**
- * Copyright © 2016 Beebit Solutions
- * All rights reserved
+ * Handcrafted with ♥ Beebit Solutions
+ * Real coffee was used in this project development
  * Licensed under MIT License
- * Author: Valentín Pedrosa
- * valentin@beebitsolutions.com
+ * contacto@beebit.es
  */
 /**
- * Materialid default options
- * @type {{fields: undefined, config: {locale: string, trigger: string, error_callback: errorCallback, success_callback: successCallback, steps: undefined, on_forward: undefined, on_backward: undefined, enable_visible: boolean}, form_obj: {selector: undefined, is_valid: boolean}}}
+ *
+ * @type {{fields: undefined, config: {locale: string, trigger: string, error_callback: errorCallback, success_callback: successCallback, steps: undefined, on_forward: undefined, on_backward: undefined, enable_visible: boolean, on_send_callback: undefined}, form_obj: {selector: undefined, is_valid: boolean}}}
  */
 var materialid = {
     fields: undefined,
@@ -19,7 +18,8 @@ var materialid = {
         steps: undefined,
         on_forward: undefined,
         on_backward: undefined,
-        enable_visible: true
+        enable_visible: true,
+        on_send_callback: undefined
     },
     form_obj: {
         selector: undefined,

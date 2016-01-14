@@ -73,9 +73,10 @@ $("form").materialid({
 
 Currently working options:
 
-* [enable_visible](#enable_visible)
-* [success_callback](#success_callback)
-* [error_callback](#error_callback)
+* [enable_visible](#enable-visible)
+* [success_callback](#success-callback)
+* [error_callback](#error-callback)
+* [on_send_callback](#on-send-callback)
 
 ###enable_visible
 
@@ -121,9 +122,13 @@ function errorCallback(field, msg) {
     field.removeClass("valid").addClass("invalid");
 }
 ```
+###on_send_callback
 
+Calls this function when forms submits and there are no validation errors.
+Will be called instead of return;, so you may include it in your function in order to submit the form.
+Its main use is perform AJAX form submission
 
-Default options for Materialid are:
+**Default** options for Materialid are:
 
 ```javascript
 config: {
@@ -134,7 +139,8 @@ config: {
     steps: undefined,
     on_forward: undefined,
     on_backward: undefined,
-    enable_visible: true
+    enable_visible: true,
+    on_send_callback: undefined
 }
 ```
 
@@ -142,7 +148,7 @@ config: {
 
 Available validators are:
 
-* [notEmpty](#notEmpty)
+* [notEmpty](#notempty)
 * [digits](#digits)
 * [numeric](#numeric)
 * [regexp](#regexp)

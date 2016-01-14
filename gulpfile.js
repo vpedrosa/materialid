@@ -1,8 +1,7 @@
 /**
- * Copyright © 2016 Beebit Solutions
- * All rights reserved
+ * Handcrafted with ♥ Beebit Solutions
+ * Real coffee was used in this project development
  * Licensed under MIT License
- * Author: Valentín Pedrosa
  * contacto@beebit.es
  */
 
@@ -22,7 +21,7 @@ gulp.task('scripts', function () {
         .pipe(gulp.dest('./dist/'));
 });
 gulp.task('styles', function () {
-    gulp.src('sass/main.scss')
+    gulp.src('sass/*.scss')
         .pipe(sourcemaps.init())
         .pipe(sass().on('error', sass.logError))
         .pipe(concat('materialid.min.css'))
@@ -39,5 +38,5 @@ gulp.task('production', ['scripts', 'styles'], function () {
 
 gulp.task('watch', function () {
     gulp.watch('./js/**/*.js', ['scripts']);
-    gulp.watch('sass/main.scss', ['styles']);
+    gulp.watch('sass/*.scss', ['styles']);
 });

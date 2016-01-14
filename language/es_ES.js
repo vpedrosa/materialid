@@ -1,11 +1,9 @@
 /**
- * Copyright © 2016 Beebit Solutions
- * All rights reserved
+ * Handcrafted with ♥ Beebit Solutions
+ * Real coffee was used in this project development
  * Licensed under MIT License
- * Author: Valentín Pedrosa
- * valentin@beebitsolutions.com
+ * contacto@beebit.es
  */
-
 
 var messages =
 {
