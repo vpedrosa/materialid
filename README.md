@@ -73,10 +73,10 @@ $("form").materialid({
 
 Currently working options:
 
-* [enable_visible](#enable-visible)
-* [success_callback](#success-callback)
-* [error_callback](#error-callback)
-* [submit_callback](#submit-callback)
+* [enable_visible](#enable_visible)
+* [success_callback](#success_callback)
+* [error_callback](#error_callback)
+* [submit_callback](#submit_callback)
 
 ###enable_visible
 
