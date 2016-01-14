@@ -125,8 +125,11 @@ function errorCallback(field, msg) {
 ###submit_callback
 
 Calls this function when forms submits and there are no validation errors.
+Only works when aiming object is a form. (You initialized materialid on a form tag)
 Will be called instead of return;, so you may include it in your function in order to submit the form.
-Its main use is perform AJAX form submission
+Its main use is perform AJAX form submission.
+Be careful with this option, any error in the callback will cause the form to be submitted leaving no errors or logs behind.
+If the callback returns **false**, the form won't be submitted. Otherwise the form will be submitted.
 
 **Default** options for Materialid are:
 

@@ -19,12 +19,12 @@ var materialid = {
         on_forward: undefined,
         on_backward: undefined,
         enable_visible: true,
-        submit_callback: undefined
     },
     form_obj: {
         selector: undefined,
         is_valid: true
-    }
+    },
+    messages:{}
 }
 
 /**
@@ -57,6 +57,7 @@ jQuery.fn.extend({
  * @param config_array
  */
 function initMaterialid(selector, config_array) {
+    $.extend(true,materialid,config_array);
     validateContainer(selector, config_array)
 }
 
@@ -74,10 +75,10 @@ function validateContainer(selector, config_array) {
             if (!materialid.form_obj.is_valid) {
                 e.preventDefault();
             } else {
-                if(typeof config_array.submit_callback !== "undefined"){
-                     config_array.submit_callback();
+                if(typeof materialid.config.submit_callback === "function") {
+                    return materialid.config.submit_callback();
                 } else {
-                    return ;
+                    return true;
                 }
             }
         });
@@ -88,6 +89,7 @@ function validateContainer(selector, config_array) {
         console.log("Types availables: div and form.");
     }
 }
+
 /**
  * Inits the fields' listeners to invoke validation
  * @param selector
@@ -127,15 +129,15 @@ function validateField(field, field_options) {
         if(typeof field_options.validators !== "undefined") {
             $.each(field_options.validators, function (k, v) {
                 field_valid = validator(field, k, v) ? field_valid : false;
-                msg = (typeof v["msg"] !== "undefined") ? v["msg"] : messages[k];
+                msg = (v["msg"] !== undefined) ? v["msg"] : materialid.messages[k];
             })
         } else {
             field_valid = true;
             console.log("Be careful, validator list for field #"+field.attr("id")+" is undefined.");
         }
-        if(typeof field_options.error_callback !== "undefined" && !field_valid) {
+        if(field_options.error_callback !== undefined && !field_valid) {
             field_options.error_callback(field,msg);
-        } else if(typeof field_options.success_callback !== "undefined" && field_valid) {
+        } else if(field_options.success_callback !== undefined && field_valid) {
             field_options.success_callback(field,msg);
         } else {
             field_valid ? materialid.config.success_callback(field, msg) : materialid.config.error_callback(field, msg);
@@ -191,8 +193,6 @@ function errorCallback(field, msg) {
  * @param msg
  */
 function successCallback(field, msg) {
-    console.log("successCalled");
     $("#" + field.attr("id") + "_validation_msg").remove();
-    console.log("#" + field.attr("id") + "_validation_msg", $("#" + field.attr("id") + "_validation_msg"))
     field.removeClass("invalid").addClass("valid");
 }
