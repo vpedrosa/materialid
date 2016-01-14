@@ -5,8 +5,8 @@
  * contacto@beebit.es
  */
 /**
- *
- * @type {{fields: undefined, config: {locale: string, trigger: string, error_callback: errorCallback, success_callback: successCallback, steps: undefined, on_forward: undefined, on_backward: undefined, enable_visible: boolean, on_send_callback: undefined}, form_obj: {selector: undefined, is_valid: boolean}}}
+ * Main materialid configuration
+ * @type {{fields: undefined, config: {locale: string, trigger: string, error_callback: errorCallback, success_callback: successCallback, steps: undefined, on_forward: undefined, on_backward: undefined, enable_visible: boolean, submit_callback: undefined}, form_obj: {selector: undefined, is_valid: boolean}}}
  */
 var materialid = {
     fields: undefined,
@@ -19,7 +19,7 @@ var materialid = {
         on_forward: undefined,
         on_backward: undefined,
         enable_visible: true,
-        on_send_callback: undefined
+        submit_callback: undefined
     },
     form_obj: {
         selector: undefined,
@@ -74,7 +74,11 @@ function validateContainer(selector, config_array) {
             if (!materialid.form_obj.is_valid) {
                 e.preventDefault();
             } else {
-                return;
+                if(typeof config_array.submit_callback !== "undefined"){
+                     config_array.submit_callback();
+                } else {
+                    return ;
+                }
             }
         });
     } else if (selector.is("div")) {

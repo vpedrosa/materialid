@@ -76,7 +76,7 @@ Currently working options:
 * [enable_visible](#enable-visible)
 * [success_callback](#success-callback)
 * [error_callback](#error-callback)
-* [on_send_callback](#on-send-callback)
+* [submit_callback](#submit-callback)
 
 ###enable_visible
 
@@ -122,7 +122,7 @@ function errorCallback(field, msg) {
     field.removeClass("valid").addClass("invalid");
 }
 ```
-###on_send_callback
+###submit_callback
 
 Calls this function when forms submits and there are no validation errors.
 Will be called instead of return;, so you may include it in your function in order to submit the form.
@@ -140,7 +140,7 @@ config: {
     on_forward: undefined,
     on_backward: undefined,
     enable_visible: true,
-    on_send_callback: undefined
+    submit_callback: undefined
 }
 ```
 
