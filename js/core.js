@@ -17,26 +17,26 @@ var materialid = {
         success_callback: successCallback,
         enable_visible: true,
         steps: undefined,
-        step_class:"step",
+        step_class: "step",
         on_forward: undefined,
         on_backward: undefined,
-        current_step:0,
-        last_step:0,
-        total_steps:0,
-        next_text:"Next",
-        previous_text:"Previous",
-        ending_button_text:"Submit",
-        starting_button_text:"Next",
-        previous_button_class:"indigo",
-        next_button_class:"indigo",
-        submit_button_class:"indigo",
-        render_navigator:false
+        current_step: 0,
+        last_step: 0,
+        total_steps: 0,
+        next_text: "Next",
+        previous_text: "Previous",
+        ending_button_text: "Submit",
+        starting_button_text: "Next",
+        previous_button_class: "indigo",
+        next_button_class: "indigo",
+        submit_button_class: "indigo",
+        render_navigator: false
     },
     form_obj: {
         selector: undefined,
         is_valid: true
     },
-    messages:{}
+    messages: {}
 }
 
 /**
@@ -70,7 +70,7 @@ jQuery.fn.extend({
  * @param config_array
  */
 function initMaterialid(selector, config_array) {
-    $.extend(true,materialid,config_array);
+    $.extend(true, materialid, config_array);
     validateContainer(selector, config_array)
 }
 
@@ -81,19 +81,19 @@ function initMaterialid(selector, config_array) {
  */
 function validateContainer(selector, config_array) {
     // Step-form functionality
-    if(materialid.config.steps == true) {
+    if (materialid.config.steps == true) {
         initSteps();
     }
     if (selector.is("form")) {
         initListeners(selector, config_array);
         //Attaching form submit validation
-        selector.on("submit",function (e) {
+        selector.on("submit", function (e) {
 
             evaluateFields(selector, config_array);
             if (!materialid.form_obj.is_valid) {
                 return false;
             } else {
-                if(typeof materialid.config.submit_callback === "function") {
+                if (typeof materialid.config.submit_callback === "function") {
                     return materialid.config.submit_callback();
                 } else {
                     return true;
@@ -144,19 +144,29 @@ function validateField(field, field_options) {
     var field_valid = true;
     var msg = "";
     if ((materialid.config.enable_visible && (field.is(":visible") || field.attr("type") == "hidden")) || !materialid.config.enable_visible) {
-        if(typeof field_options.validators !== "undefined") {
+        if (typeof field_options.validators !== "undefined") {
             $.each(field_options.validators, function (k, v) {
                 field_valid = validator(field, k, v) ? field_valid : false;
-                msg = (v["msg"] !== undefined) ? v["msg"] : ((materialid.messages[k] == undefined) ? msg : materialid.messages[k]) ;
+                msg = (v["msg"] !== undefined) ? v["msg"] : ((materialid.messages[k] == undefined) ? msg : materialid.messages[k]);
             })
         } else {
             field_valid = true;
-            console.log("Be careful, validator list for field #"+field.attr("id")+" is undefined.");
+            console.log("Be careful, validator list for field #" + field.attr("id") + " is undefined.");
         }
-        if(field_options.error_callback !== undefined && !field_valid) {
-            field_options.error_callback(field,msg);
-        } else if(field_options.success_callback !== undefined && field_valid) {
-            field_options.success_callback(field,msg);
+        if (field_options.error_callback !== undefined && !field_valid) {
+            // TODO: add documentation for custom_error_field
+            if (field_options.custom_error_field !== undefined) {
+                field_options.error_callback(field_options.custom_error_field, msg);
+            } else {
+                field_options.error_callback(field, msg);
+            }
+        } else if (field_options.success_callback !== undefined && field_valid) {
+            // TODO: add documentation for custom_success_field
+            if (field_options.custom_success_field !== undefined) {
+                field_options.success_callback(field_options.custom_success_field, msg);
+            } else {
+                field_options.success_callback(field, msg);
+            }
         } else {
             field_valid ? materialid.config.success_callback(field, msg) : materialid.config.error_callback(field, msg);
         }
@@ -185,7 +195,7 @@ function evaluateFields(selector, config_array) {
  * @returns {*}
  */
 function validator(field, callback, settings) {
-    console.log("CALLBACK:",callback)
+    console.log("CALLBACK:", callback)
     if (typeof callbacksIndex[callback] !== "undefined") {
         return callbacksIndex[callback](field, settings);
     } else {
