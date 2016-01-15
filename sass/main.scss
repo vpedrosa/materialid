@@ -4,8 +4,48 @@
  * Licensed under MIT License
  * contacto@beebit.es
  */
-.validation-msg
-{
-  color:#F44336;
+$navigator_circle_size: 40px;
+.validation-msg {
+  color: #F44336;
   text-align: left !important;
+}
+
+.input-field .prefix ~ .validation-msg {
+  margin-left: 3rem;
+}
+
+.navigator .step-indicator {
+  margin-left:-$navigator_circle_size/2;
+  background-color: #3F51B5;
+  height: $navigator_circle_size;
+  width: $navigator_circle_size;
+  line-height: $navigator_circle_size;
+  color: white;
+  -webkit-border-radius: $navigator_circle_size/2;
+  -moz-border-radius: $navigator_circle_size/2;
+  border-radius: $navigator_circle_size/2;
+  position: relative;
+  left: 0%;
+  padding-left: 16px;
+  box-sizing: border-box;
+  .material-icons {
+    position: relative;
+    top: 7px;
+    left: -7.5px;
+  }
+  margin-bottom: 10px;
+}
+
+.navigator .progress {
+  background-color:#9FA8DA;
+  .determinate {
+    width:0%;
+    background-color:#3F51B5;
+  }
+}
+.navigator .initial-step {
+  margin-left: 0;
+}
+.navigator .final-step {
+  margin-left: -$navigator_circle_size;
 }

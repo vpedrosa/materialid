@@ -15,10 +15,22 @@ var materialid = {
         trigger: "change",
         error_callback: errorCallback,
         success_callback: successCallback,
+        enable_visible: true,
         steps: undefined,
+        step_class:"step",
         on_forward: undefined,
         on_backward: undefined,
-        enable_visible: true,
+        current_step:0,
+        last_step:0,
+        total_steps:0,
+        next_text:"Next",
+        previous_text:"Previous",
+        ending_button_text:"Submit",
+        starting_button_text:"Next",
+        previous_button_class:"indigo",
+        next_button_class:"indigo",
+        submit_button_class:"indigo",
+        render_navigator:false
     },
     form_obj: {
         selector: undefined,
@@ -39,7 +51,8 @@ var callbacksIndex = {
     "dni": dni,
     "nie": nie,
     "cif": cif,
-    "custom": custom
+    "custom": custom,
+    "between": between
 }
 
 /**
@@ -67,13 +80,18 @@ function initMaterialid(selector, config_array) {
  * @param config_array
  */
 function validateContainer(selector, config_array) {
+    // Step-form functionality
+    if(materialid.config.steps == true) {
+        initSteps();
+    }
     if (selector.is("form")) {
         initListeners(selector, config_array);
         //Attaching form submit validation
-        selector.submit(function (e) {
+        selector.on("submit",function (e) {
+
             evaluateFields(selector, config_array);
             if (!materialid.form_obj.is_valid) {
-                e.preventDefault();
+                return false;
             } else {
                 if(typeof materialid.config.submit_callback === "function") {
                     return materialid.config.submit_callback();
@@ -125,11 +143,11 @@ function addValidationListenerToField(field, field_options) {
 function validateField(field, field_options) {
     var field_valid = true;
     var msg = "";
-    if ((materialid.config.enable_visible && field.is(":visible")) || !materialid.config.enable_visible) {
+    if ((materialid.config.enable_visible && (field.is(":visible") || field.attr("type") == "hidden")) || !materialid.config.enable_visible) {
         if(typeof field_options.validators !== "undefined") {
             $.each(field_options.validators, function (k, v) {
                 field_valid = validator(field, k, v) ? field_valid : false;
-                msg = (v["msg"] !== undefined) ? v["msg"] : materialid.messages[k];
+                msg = (v["msg"] !== undefined) ? v["msg"] : ((materialid.messages[k] == undefined) ? msg : materialid.messages[k]) ;
             })
         } else {
             field_valid = true;
@@ -167,6 +185,7 @@ function evaluateFields(selector, config_array) {
  * @returns {*}
  */
 function validator(field, callback, settings) {
+    console.log("CALLBACK:",callback)
     if (typeof callbacksIndex[callback] !== "undefined") {
         return callbacksIndex[callback](field, settings);
     } else {

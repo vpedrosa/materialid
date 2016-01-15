@@ -23,4 +23,12 @@ var messages =
     nif: "Ha de ser un DNI, NIE, CIF o NIF válido.",
     regexp: "El valor de este campo no es correcto."
 }
+var config =
+{
+    next_text:"Siguiente",
+    previous_text:"Anterior",
+    ending_button_text:"Enviar",
+    starting_button_text:"Comenzar"
+}
 $.extend(materialid.messages, messages);
+$.extend(materialid.config, config);
