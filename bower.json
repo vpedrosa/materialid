@@ -1,7 +1,7 @@
 {
   "name": "materialid",
   "description": "Form validation made easy for MaterializeCSS",
-  "main": "/dist/materialid.js",
+  "main": "/dist/materialid.min.js",
   "authors": [
     "Valentin <valentin@beebit.es>"
   ],

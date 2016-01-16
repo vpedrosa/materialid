@@ -56,13 +56,14 @@ var callbacksIndex = {
 }
 
 /**
- * Overloading of jQuery function
+ * Creation of jQuery function
  */
-jQuery.fn.extend({
-    materialid: function (config_array) {
+(function ( $ ) {
+    $.fn.materialid = function (config_array) {
         initMaterialid(this, config_array)
     }
-});
+}( jQuery ));
+
 
 /**
  * Initialization of Materialid
@@ -85,7 +86,7 @@ function validateContainer(selector, config_array) {
         initSteps();
     }
     if (selector.is("form")) {
-        initListeners(selector, config_array);
+        initMaterialidListeners(selector, config_array);
         //Attaching form submit validation
         selector.on("submit", function (e) {
 
@@ -101,7 +102,7 @@ function validateContainer(selector, config_array) {
             }
         });
     } else if (selector.is("div")) {
-        initListeners(selector, config_array);
+        initMaterialidListeners(selector, config_array);
     } else {
         console.log("Invalid selector: ", selector);
         console.log("Types availables: div and form.");
@@ -113,7 +114,7 @@ function validateContainer(selector, config_array) {
  * @param selector
  * @param config_array
  */
-function initListeners(selector, config_array) {
+function initMaterialidListeners(selector, config_array) {
     $.each(config_array.fields, function (k, v) {
         addValidationListenerToField(selector.find("#" + k), v);
     })
