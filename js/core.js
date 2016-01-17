@@ -221,8 +221,16 @@ function materialidValidator(field, callback, settings) {
  * @param msg
  */
 function materialidErrorCallback(field, msg) {
+
     if ($("#" + field.attr("id") + "_validation_msg").length == 0) {
-        field.after("<span id='" + field.attr("id") + "_validation_msg' class='validation-msg'></span>");
+        var errorField = "<span id='" + field.attr("id") + "_validation_msg' class='validation-msg'></span>";
+        if(field.attr("type") == "radio" || field.attr("type") == "checkbox") {
+            $("label[for='"+field.attr("id")+"'").addClass("red-text").after("<p>"+errorField+"</p>");
+
+        } else {
+            field.after(errorField);
+        }
+
     }
     $("#" + field.attr("id") + "_validation_msg").text(msg);
     field.removeClass("valid").addClass("invalid");
@@ -234,6 +242,11 @@ function materialidErrorCallback(field, msg) {
  * @param msg
  */
 function materialidSuccessCallback(field, msg) {
-    $("#" + field.attr("id") + "_validation_msg").remove();
+    if(field.attr("type") == "radio" || field.attr("type") == "checkbox") {
+        $("#" + field.attr("id") + "_validation_msg").parent().remove();
+        $("label[for='"+field.attr("id")+"'").removeClass("red-text")
+    } else {
+        $("#" + field.attr("id") + "_validation_msg").remove();
+    }
     field.removeClass("invalid").addClass("valid");
 }
