@@ -20,6 +20,8 @@ var materialid = {
         step_class: "step",
         on_forward: undefined,
         on_backward: undefined,
+        starting_step:1,
+        ending_step: 0,
         current_step: 0,
         last_step: 0,
         total_steps: 0,

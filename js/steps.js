@@ -10,6 +10,7 @@ function initMaterialidSteps() {
     calculateMaterialidStepsTotal();
     renderMaterialidControls();
     (materialid.config.render_navigator) ? renderMaterialidNavigator() : null;
+    (materialid.config.render_navigator && materialid.config.starting_step != 1) ? animateMaterialidNavigator() : null;
 
 }
 
@@ -43,7 +44,10 @@ function stepMaterialid(oper) {
 }
 
 function calculateMaterialidStepsTotal() {
+
     materialid.config.total_steps = $("." + materialid.config.step_class).length - 1;
+    materialid.config.ending_step = (materialid.config.ending_step == 0
+    || materialid.config.ending_step < materialid.config.total_steps) ? materialid.config.total_steps : materialid.config.ending_step;
 }
 
 /**
@@ -73,7 +77,7 @@ function renderMaterialidControls() {
 function renderMaterialidNavigator() {
     var loader = '<div class="steps-navigation-container">' +
         '    <div class="step-indicator initial-step">' +
-        '        1' +
+        '        ' + materialid.config.starting_step +
         '    </div>' +
         '    <div class="progress">' +
         '        <div class="determinate"></div>' +
@@ -83,17 +87,17 @@ function renderMaterialidNavigator() {
 }
 
 function animateMaterialidNavigator() {
-    var percent = Math.round(materialid.config.current_step * 100 / materialid.config.total_steps);
+    var percent = Math.round((materialid.config.current_step+(materialid.config.starting_step-1)) * 100 / (materialid.config.ending_step));
     console.log(percent);
-    if (materialid.config.current_step == 0) {
+    if ((materialid.config.current_step+(materialid.config.starting_step-1)) == 0) {
         $(".steps-navigation-container .step-indicator").addClass("initial-step")
     } else {
         $(".steps-navigation-container .step-indicator").removeClass("initial-step")
     }
-    if (materialid.config.current_step == materialid.config.total_steps) {
+    if (materialid.config.current_step+(materialid.config.starting_step-1) == materialid.config.ending_step) {
         $(".steps-navigation-container .step-indicator").html('<i class="material-icons">done</i>').addClass("final-step");
     } else {
-        $(".steps-navigation-container .step-indicator").text(materialid.config.current_step + 1).removeClass("final-step");
+        $(".steps-navigation-container .step-indicator").text(materialid.config.current_step + materialid.config.starting_step).removeClass("final-step");
     }
 
     $(".steps-navigation-container .step-indicator").animate({
