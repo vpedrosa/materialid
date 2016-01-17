@@ -5,72 +5,72 @@
  * contacto@beebit.es
  */
 
-function initSteps() {
-    hideSteps();
-    calculateStepsTotal();
-    renderControls();
-    (materialid.config.render_navigator) ? renderNavigator() : null;
+function initMaterialidSteps() {
+    hideMaterialidSteps();
+    calculateMaterialidStepsTotal();
+    renderMaterialidControls();
+    (materialid.config.render_navigator) ? renderMaterialidNavigator() : null;
 
 }
 
-function hideSteps() {
+function hideMaterialidSteps() {
     $("." + materialid.config.step_class).hide();
     $($("." + materialid.config.step_class)[0]).show();
 }
 
-function stepForward() {
+function stepMaterialidForward() {
     if (materialid.config.current_step < materialid.config.total_steps) {
-        evaluateFields($($("." + materialid.config.step_class)[materialid.config.current_step]), materialid);
+        evaluateMaterialidFields($($("." + materialid.config.step_class)[materialid.config.current_step]), materialid);
         if (materialid.form_obj.is_valid) {
-            step(+1);
+            stepMaterialid(+1);
         }
     }
 }
 
-function stepBackward() {
+function stepMaterialidBackward() {
     if (materialid.config.current_step > 0) {
-        step(-1);
+        stepMaterialid(-1);
     }
 }
 
-function step(oper) {
+function stepMaterialid(oper) {
     materialid.config.last_step = materialid.config.current_step;
     materialid.config.current_step += oper;
     $($("." + materialid.config.step_class)[materialid.config.last_step]).hide();
     $($("." + materialid.config.step_class)[materialid.config.current_step]).show();
-    renderControls();
-    (materialid.config.render_navigator) ? animateNavigator() : null;
+    renderMaterialidControls();
+    (materialid.config.render_navigator) ? animateMaterialidNavigator() : null;
 }
 
-function calculateStepsTotal() {
+function calculateMaterialidStepsTotal() {
     materialid.config.total_steps = $("." + materialid.config.step_class).length - 1;
 }
 
 /**
  * Uses .navigation-controls selector to generate navigation buttons
  */
-function renderControls() {
+function renderMaterialidControls() {
     var zero = materialid.config.current_step == 0,
         inner = materialid.config.current_step == materialid.config.total_steps,
         last = materialid.config.last_step == 0 || materialid.config.last_step == materialid.config.total_steps,
         change = zero || inner || last;
     if (zero) {
-        $(".navigation-controls").html(startingNavigationControls());
+        $(".navigation-controls").html(startingMaterialidNavigationControls());
     } else if (inner) {
-        $(".navigation-controls").html(endingNavigationControls());
+        $(".navigation-controls").html(endingMaterialidNavigationControls());
     } else if (last) {
-        $(".navigation-controls").html(usualNavigationControls());
+        $(".navigation-controls").html(usualMaterialidNavigationControls());
     }
     if (change) {
-        $(".step-forward").on("click", stepForward);
-        $(".step-backward").on("click", stepBackward);
+        $(".step-forward").on("click", stepMaterialidForward);
+        $(".step-backward").on("click", stepMaterialidBackward);
     }
 }
 
 /**
  * Uses .navigator selector to generate navigation progress bar and steps
  */
-function renderNavigator() {
+function renderMaterialidNavigator() {
     var loader = '<div class="steps-navigation-container">' +
         '    <div class="step-indicator initial-step">' +
         '        1' +
@@ -82,7 +82,7 @@ function renderNavigator() {
     $(".navigator").html(loader);
 }
 
-function animateNavigator() {
+function animateMaterialidNavigator() {
     var percent = Math.round(materialid.config.current_step * 100 / materialid.config.total_steps);
     console.log(percent);
     if (materialid.config.current_step == 0) {
@@ -103,7 +103,7 @@ function animateNavigator() {
     $(".steps-navigation-container .progress .determinate").css({width: percent + "%"});
 }
 
-function startingNavigationControls() {
+function startingMaterialidNavigationControls() {
     return '<div class="row">' +
         '<div class="col s12">' +
         '<a class="waves-effect waves-light btn right step-forward ' + materialid.config.next_button_class + '"><i class="material-icons right">keyboard_arrow_right</i>' + materialid.config.starting_button_text + '</a>' +
@@ -112,7 +112,7 @@ function startingNavigationControls() {
 
 }
 
-function usualNavigationControls() {
+function usualMaterialidNavigationControls() {
     return '<div class="row"> ' +
         '<div class="col s12">' +
         '<a class="waves-effect waves-light btn left step-backward ' + materialid.config.previous_button_class + '">' +
@@ -125,7 +125,7 @@ function usualNavigationControls() {
         '</div>';
 }
 
-function endingNavigationControls() {
+function endingMaterialidNavigationControls() {
     return '<div class="row">' +
         '<div class="col s12">' +
         '<a class="waves-effect waves-light btn left step-backward ' + materialid.config.previous_button_class + '">' + materialid.config.previous_text + '</a>' +

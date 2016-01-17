@@ -6,15 +6,15 @@
  */
 /**
  * Main materialid configuration
- * @type {{fields: undefined, config: {locale: string, trigger: string, error_callback: errorCallback, success_callback: successCallback, steps: undefined, on_forward: undefined, on_backward: undefined, enable_visible: boolean, submit_callback: undefined}, form_obj: {selector: undefined, is_valid: boolean}}}
+ * @type {{fields: undefined, config: {locale: string, trigger: string, error_callback: materialidErrorCallback, success_callback: materialidSuccessCallback, enable_visible: boolean, steps: undefined, step_class: string, on_forward: undefined, on_backward: undefined, current_step: number, last_step: number, total_steps: number, next_text: string, previous_text: string, ending_button_text: string, starting_button_text: string, previous_button_class: string, next_button_class: string, submit_button_class: string, render_navigator: boolean}, form_obj: {selector: undefined, is_valid: boolean}, messages: {}}}
  */
 var materialid = {
     fields: undefined,
     config: {
         locale: "es_ES",
         trigger: "change",
-        error_callback: errorCallback,
-        success_callback: successCallback,
+        error_callback: materialidErrorCallback,
+        success_callback: materialidSuccessCallback,
         enable_visible: true,
         steps: undefined,
         step_class: "step",
@@ -51,6 +51,7 @@ var callbacksIndex = {
     "dni": dni,
     "nie": nie,
     "cif": cif,
+    "nif" : nif,
     "custom": custom,
     "between": between
 }
@@ -58,11 +59,9 @@ var callbacksIndex = {
 /**
  * Creation of jQuery function
  */
-(function ( $ ) {
-    $.fn.materialid = function (config_array) {
-        initMaterialid(this, config_array)
-    }
-}( jQuery ));
+$.fn.materialid = function (config_array) {
+    initMaterialid(this, config_array)
+}
 
 
 /**
@@ -71,8 +70,9 @@ var callbacksIndex = {
  * @param config_array
  */
 function initMaterialid(selector, config_array) {
+
     $.extend(true, materialid, config_array);
-    validateContainer(selector, config_array)
+    validateMaterialidContainer(selector)
 }
 
 /**
@@ -80,17 +80,17 @@ function initMaterialid(selector, config_array) {
  * @param selector
  * @param config_array
  */
-function validateContainer(selector, config_array) {
+function validateMaterialidContainer(selector) {
     // Step-form functionality
     if (materialid.config.steps == true) {
-        initSteps();
+        initMaterialidSteps();
     }
     if (selector.is("form")) {
-        initMaterialidListeners(selector, config_array);
+        initMaterialidListeners(selector);
         //Attaching form submit validation
         selector.on("submit", function (e) {
 
-            evaluateFields(selector, config_array);
+            evaluateMaterialidFields(selector);
             if (!materialid.form_obj.is_valid) {
                 return false;
             } else {
@@ -102,7 +102,7 @@ function validateContainer(selector, config_array) {
             }
         });
     } else if (selector.is("div")) {
-        initMaterialidListeners(selector, config_array);
+        initMaterialidListeners(selector);
     } else {
         console.log("Invalid selector: ", selector);
         console.log("Types availables: div and form.");
@@ -114,9 +114,9 @@ function validateContainer(selector, config_array) {
  * @param selector
  * @param config_array
  */
-function initMaterialidListeners(selector, config_array) {
-    $.each(config_array.fields, function (k, v) {
-        addValidationListenerToField(selector.find("#" + k), v);
+function initMaterialidListeners(selector) {
+    $.each(materialid.fields, function (k, v) {
+        addMaterialidValidationListenerToField(selector.find("#" + k), v);
     })
 }
 
@@ -125,10 +125,10 @@ function initMaterialidListeners(selector, config_array) {
  * @param field
  * @param field_options
  */
-function addValidationListenerToField(field, field_options) {
+function addMaterialidValidationListenerToField(field, field_options) {
     if (materialid.config.trigger == "change") {
         field.change(function () {
-            validateField(field, field_options);
+            validateMaterialidField(field, field_options);
         })
     } else {
         //TODO: attach to trigger
@@ -141,13 +141,13 @@ function addValidationListenerToField(field, field_options) {
  * @param field_options
  * @returns {boolean}
  */
-function validateField(field, field_options) {
+function validateMaterialidField(field, field_options) {
     var field_valid = true;
     var msg = "";
     if ((materialid.config.enable_visible && (field.is(":visible") || field.attr("type") == "hidden")) || !materialid.config.enable_visible) {
         if (typeof field_options.validators !== "undefined") {
             $.each(field_options.validators, function (k, v) {
-                field_valid = validator(field, k, v) ? field_valid : false;
+                field_valid = materialidValidator(field, k, v) ? field_valid : false;
                 msg = (v["msg"] !== undefined) ? v["msg"] : ((materialid.messages[k] == undefined) ? msg : materialid.messages[k]);
             })
         } else {
@@ -181,10 +181,10 @@ function validateField(field, field_options) {
  * @param selector
  * @param config_array
  */
-function evaluateFields(selector, config_array) {
+function evaluateMaterialidFields(selector) {
     materialid.form_obj.is_valid = true;
-    $.each(config_array.fields, function (k, v) {
-        validateField(selector.find("#" + k), v);
+    $.each(materialid.fields, function (k, v) {
+        validateMaterialidField(selector.find("#" + k), v);
     })
 }
 
@@ -195,8 +195,7 @@ function evaluateFields(selector, config_array) {
  * @param settings
  * @returns {*}
  */
-function validator(field, callback, settings) {
-    console.log("CALLBACK:", callback)
+function materialidValidator(field, callback, settings) {
     if (typeof callbacksIndex[callback] !== "undefined") {
         return callbacksIndex[callback](field, settings);
     } else {
@@ -210,7 +209,7 @@ function validator(field, callback, settings) {
  * @param field
  * @param msg
  */
-function errorCallback(field, msg) {
+function materialidErrorCallback(field, msg) {
     if ($("#" + field.attr("id") + "_validation_msg").length == 0) {
         field.after("<span id='" + field.attr("id") + "_validation_msg' class='validation-msg'></span>");
     }
@@ -223,7 +222,7 @@ function errorCallback(field, msg) {
  * @param field
  * @param msg
  */
-function successCallback(field, msg) {
+function materialidSuccessCallback(field, msg) {
     $("#" + field.attr("id") + "_validation_msg").remove();
     field.removeClass("invalid").addClass("valid");
 }
