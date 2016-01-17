@@ -13,7 +13,7 @@ var uglify = require('gulp-uglify');
 var minifyCss = require('gulp-minify-css');
 
 gulp.task('scripts', function () {
-    return gulp.src('./js/**/*.js')
+    return gulp.src(['./js/**/*.js','./language/*.js'])
         .pipe(sourcemaps.init())
         .pipe(concat('materialid.min.js'))
         .pipe(uglify())

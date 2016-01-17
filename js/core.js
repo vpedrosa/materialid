@@ -6,7 +6,7 @@
  */
 /**
  * Main materialid configuration
- * @type {{fields: undefined, config: {locale: string, trigger: string, error_callback: materialidErrorCallback, success_callback: materialidSuccessCallback, enable_visible: boolean, steps: undefined, step_class: string, on_forward: undefined, on_backward: undefined, current_step: number, last_step: number, total_steps: number, next_text: string, previous_text: string, ending_button_text: string, starting_button_text: string, previous_button_class: string, next_button_class: string, submit_button_class: string, render_navigator: boolean}, form_obj: {selector: undefined, is_valid: boolean}, messages: {}}}
+ * @type {{fields: undefined, config: {locale: string, trigger: string, error_callback: materialidErrorCallback, success_callback: materialidSuccessCallback, enable_visible: boolean, steps: undefined, step_class: string, on_forward: undefined, on_backward: undefined, starting_step: number, ending_step: number, current_step: number, last_step: number, total_steps: number, next_text: string, previous_text: string, submit_button_text: string, starting_button_text: string, previous_button_class: string, next_button_class: string, submit_button_class: string, next_button_icon: string, previous_button_icon: string, submit_button_icon: string, starting_button_icon: string, render_navigator: boolean}, form_obj: {selector: undefined, is_valid: boolean}, messages: {}}}
  */
 var materialid = {
     fields: undefined,
@@ -42,6 +42,7 @@ var materialid = {
         selector: undefined,
         is_valid: true
     },
+    lang:{},
     messages: {}
 }
 
@@ -76,7 +77,11 @@ $.fn.materialid = function (config_array) {
  * @param config_array
  */
 function initMaterialid(selector, config_array) {
-
+    if(typeof config_array.config.locale !== "undefined") {
+        materialid.lang[config_array.config.locale]();
+    } else {
+        materialid.lang[materialid.config.locale]();
+    }
     $.extend(true, materialid, config_array);
     validateMaterialidContainer(selector)
 }

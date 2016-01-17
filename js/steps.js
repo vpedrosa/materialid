@@ -88,7 +88,6 @@ function renderMaterialidNavigator() {
 
 function animateMaterialidNavigator() {
     var percent = Math.round((materialid.config.current_step+(materialid.config.starting_step-1)) * 100 / (materialid.config.ending_step-1));
-    console.log(percent);
     if ((materialid.config.current_step+(materialid.config.starting_step-1)) == 0) {
         $(".steps-navigation-container .step-indicator").addClass("initial-step")
     } else {
