@@ -25,11 +25,15 @@ var materialid = {
         total_steps: 0,
         next_text: "Next",
         previous_text: "Previous",
-        ending_button_text: "Submit",
+        submit_button_text: "Submit",
         starting_button_text: "Next",
         previous_button_class: "indigo",
         next_button_class: "indigo",
         submit_button_class: "indigo",
+        next_button_icon: "keyboard_arrow_right",
+        previous_button_icon: "keyboard_arrow_left",
+        submit_button_icon: "done",
+        starting_button_icon: "keyboard_arrow_right",
         render_navigator: false
     },
     form_obj: {

@@ -57,7 +57,7 @@ function renderMaterialidControls() {
     if (zero) {
         $(".navigation-controls").html(startingMaterialidNavigationControls());
     } else if (inner) {
-        $(".navigation-controls").html(endingMaterialidNavigationControls());
+        $(".navigation-controls").html(submitMaterialidNavigationControls());
     } else if (last) {
         $(".navigation-controls").html(usualMaterialidNavigationControls());
     }
@@ -106,10 +106,9 @@ function animateMaterialidNavigator() {
 function startingMaterialidNavigationControls() {
     return '<div class="row">' +
         '<div class="col s12">' +
-        '<a class="waves-effect waves-light btn right step-forward ' + materialid.config.next_button_class + '"><i class="material-icons right">keyboard_arrow_right</i>' + materialid.config.starting_button_text + '</a>' +
+        '<a class="waves-effect waves-light btn right step-forward ' + materialid.config.next_button_class + '"><i class="material-icons right">' + materialid.config.starting_button_icon + '</i>' + materialid.config.starting_button_text + '</a>' +
         '<div class="clearfix"></div></div>' +
-        '</div>'
-
+        '</div>';
 }
 
 function usualMaterialidNavigationControls() {
@@ -117,19 +116,19 @@ function usualMaterialidNavigationControls() {
         '<div class="col s12">' +
         '<a class="waves-effect waves-light btn left step-backward ' + materialid.config.previous_button_class + '">' +
         materialid.config.previous_text +
-        '<i class="material-icons left">keyboard_arrow_left</i></a>' +
+        '<i class="material-icons left">'+materialid.config.previous_button_icon+'</i></a>' +
         '<a class="waves-effect waves-light btn right step-forward ' + materialid.config.next_button_class + '">' +
         materialid.config.next_text +
-        '<i class="material-icons right">keyboard_arrow_right</i></a>' +
+        '<i class="material-icons right">'+materialid.config.next_button_icon+'</i></a>' +
         '<div class="clearfix"></div></div>' +
         '</div>';
 }
 
-function endingMaterialidNavigationControls() {
+function submitMaterialidNavigationControls() {
     return '<div class="row">' +
         '<div class="col s12">' +
-        '<a class="waves-effect waves-light btn left step-backward ' + materialid.config.previous_button_class + '">' + materialid.config.previous_text + '</a>' +
-        '<button type="submit" class="waves-effect waves-light btn right ' + materialid.config.submit_button_class + '"><i class="material-icons right">done</i>' + materialid.config.ending_button_text + '</button>' +
+        '<a class="waves-effect waves-light btn left step-backward ' + materialid.config.previous_button_class + '">' + materialid.config.previous_text + '<i class="material-icons right">'+materialid.config.previous_button_icon+'</i></a>' +
+        '<button type="submit" class="waves-effect waves-light btn right ' + materialid.config.submit_button_class + '"><i class="material-icons right">' + materialid.config.submit_button_icon + '</i>' + materialid.config.submit_button_text + '</button>' +
         '<div class="clearfix"></div></div>' +
         '</div>'
 }
