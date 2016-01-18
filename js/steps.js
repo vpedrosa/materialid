@@ -87,16 +87,16 @@ function renderMaterialidNavigator() {
 }
 
 function animateMaterialidNavigator() {
-    var percent = Math.round((materialid.config.current_step+(materialid.config.starting_step-1)) * 100 / (materialid.config.ending_step-1));
+    var percent = Math.round((materialid.config.current_step+(materialid.config.starting_step-1)) * 100 / (materialid.config.ending_step));
     if ((materialid.config.current_step+(materialid.config.starting_step-1)) == 0) {
         $(".steps-navigation-container .step-indicator").addClass("initial-step")
     } else {
         $(".steps-navigation-container .step-indicator").removeClass("initial-step")
     }
-    if (materialid.config.current_step+(materialid.config.starting_step-1) == materialid.config.ending_step-1) {
+    if (materialid.config.current_step+(materialid.config.starting_step-1) == materialid.config.ending_step) {
         $(".steps-navigation-container .step-indicator").html('<i class="material-icons">done</i>').addClass("final-step");
     } else {
-        $(".steps-navigation-container .step-indicator").text(materialid.config.current_step + materialid.config.starting_step).removeClass("final-step");
+        $(".steps-navigation-container .step-indicator").text(materialid.config.current_step + ((materialid.config.ending_step == materialid.config.total_steps) ? 1 : materialid.config.starting_step -1)).removeClass("final-step");
     }
 
     $(".steps-navigation-container .step-indicator").animate({
