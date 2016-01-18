@@ -59,6 +59,7 @@ var callbacksIndex = {
     "nie": nie,
     "cif": cif,
     "nif" : nif,
+    "nif_cif" : nif_cif,
     "custom": custom,
     "between": between
 }
