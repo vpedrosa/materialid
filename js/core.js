@@ -61,7 +61,8 @@ var callbacksIndex = {
     "nif" : nif,
     "nif_cif" : nif_cif,
     "custom": custom,
-    "between": between
+    "between": between,
+    "email" : email
 }
 
 /**
@@ -159,6 +160,7 @@ function validateMaterialidField(field, field_options) {
     if ((materialid.config.enable_visible && (field.is(":visible") || field.attr("type") == "hidden")) || !materialid.config.enable_visible) {
         if (typeof field_options.validators !== "undefined") {
             $.each(field_options.validators, function (k, v) {
+                console.log("VAL:",materialidValidator(field, k, v));
                 field_valid = materialidValidator(field, k, v) ? field_valid : false;
                 if(!field_valid  || msg == "")
                     msg = (v["msg"] !== undefined) ? v["msg"] : ((materialid.messages[k] == undefined) ? msg : materialid.messages[k]);
