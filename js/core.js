@@ -160,7 +160,8 @@ function validateMaterialidField(field, field_options) {
         if (typeof field_options.validators !== "undefined") {
             $.each(field_options.validators, function (k, v) {
                 field_valid = materialidValidator(field, k, v) ? field_valid : false;
-                msg = (v["msg"] !== undefined) ? v["msg"] : ((materialid.messages[k] == undefined) ? msg : materialid.messages[k]);
+                if(!field_valid  || msg == "")
+                    msg = (v["msg"] !== undefined) ? v["msg"] : ((materialid.messages[k] == undefined) ? msg : materialid.messages[k]);
             })
         } else {
             field_valid = true;
