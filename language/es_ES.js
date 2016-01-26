@@ -16,7 +16,7 @@ materialid.lang.es_ES = function() {
         nie: "Ha de ser un NIE válido.",
         dni_nie: "Ha de ser un DNI válido.",
         cif: "Ha de ser un CIF válido.",
-        dni_nie_cif: "Ha de ser un DNI, NIE o CIF válido.",
+        nif_cif: "Ha de ser un DNI, NIE o CIF válido.",
         digits: "Ha de contener sólo números.",
         numeric: "Ha de contener sólo números.",
         between: "Debe contener entre  %a% y %b% caracteres.",
