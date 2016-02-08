@@ -130,7 +130,7 @@ function usualMaterialidNavigationControls() {
 function submitMaterialidNavigationControls() {
     return '<div class="row">' +
         '<div class="col s12">' +
-        '<a class="waves-effect waves-light btn left step-backward ' + materialid.config.previous_button_class + '">' + materialid.config.previous_text + '<i class="material-icons right">'+materialid.config.previous_button_icon+'</i></a>' +
+        '<a class="waves-effect waves-light btn left step-backward ' + materialid.config.previous_button_class + '">' + materialid.config.previous_text + '<i class="material-icons left">'+materialid.config.previous_button_icon+'</i></a>' +
         '<button type="submit" class="waves-effect waves-light btn right ' + materialid.config.submit_button_class + '"><i class="material-icons right">' + materialid.config.submit_button_icon + '</i>' + materialid.config.submit_button_text + '</button>' +
         '<div class="clearfix"></div></div>' +
         '</div>'
