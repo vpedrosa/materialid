@@ -62,6 +62,7 @@ var callbacksIndex = {
     "nif_cif" : nif_cif,
     "custom": custom,
     "between": between,
+    "length": length,
     "email" : email
 }
 
