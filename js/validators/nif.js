@@ -7,5 +7,9 @@
 
 function nif(field, settings) {
     var str = field.val().toString().toUpperCase();
-    return validateNIE(str) || validateDNI(str);
+    var is_valid = true;
+    if(str != "") {
+        is_valid = validateNIE(str) || validateDNI(str);
+    }
+    return is_valid;
 }

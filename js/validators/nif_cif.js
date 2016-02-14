@@ -8,5 +8,5 @@
 function nif_cif(field,settings)
 {
     var str = field.val().toString().toUpperCase();
-    return (validateNIE(str) || validateDNI(str) || validateCIF(str));
+    return (str == "") ? true : (validateNIE(str) || validateDNI(str) || validateCIF(str));
 }

@@ -6,7 +6,7 @@
  */
 function nie(field, settings) {
     var str = field.val().toString().toUpperCase();
-    return validateNIE(str);
+    return (str == "") ? true : validateNIE(str);
 }
 
 function validateNIE(nie)
