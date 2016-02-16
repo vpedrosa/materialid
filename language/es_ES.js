@@ -22,7 +22,8 @@ materialid.lang.es_ES = function() {
         between: "Debe contener entre  %a% y %b% caracteres.",
         length: "Debe tener exáctamente %a% caracteres.",
         nif: "Ha de ser un DNI o NIE válido.",
-        regexp: "El valor de este campo no es correcto."
+        regexp: "El valor de este campo no es correcto.",
+        iban: "Ha de ser un IBAN válido"
     }
     var config =
     {

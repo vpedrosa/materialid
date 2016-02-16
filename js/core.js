@@ -63,7 +63,8 @@ var callbacksIndex = {
     "custom": custom,
     "between": between,
     "length": length,
-    "email" : email
+    "email" : email,
+    "iban" : iban
 }
 
 /**
