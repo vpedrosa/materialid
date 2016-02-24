@@ -6,7 +6,7 @@
  */
 function dni(field, setttings) {
     var dni = field.val();
-    return validateDNI(dni);
+    return (dni == "") ? true : validateDNI(dni);
 }
 
 /**
