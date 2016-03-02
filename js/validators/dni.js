@@ -5,8 +5,8 @@
  * @returns {boolean}
  */
 function dni(field, setttings) {
-    var dni = field.val();
-    return (dni == "") ? true : validateDNI(dni);
+    var dni = field.val().toString().toUpperCase();
+    return ($.trim(dni) == "") ? true : validateDNI(dni);
 }
 
 /**
